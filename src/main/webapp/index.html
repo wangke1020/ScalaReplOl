@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>JQuery Console Demo</title>
+    <meta name="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="jquery.console.js"></script>
+    <!-- Everything beyond this point is user-customized -->
+    <script type="text/javascript">
+
+
+    uuid = ''
+    msg = ''
+
+    function register() {
+      $.ajax({
+        url: 'http://localhost:8080/rest/register',
+        type: 'GET',
+        dataType: "json",
+        async : false,
+        success: function(data) {
+          console.log(data)
+          uuid = data.detail
+          console.log(uuid)
+        },
+        error: function (jqXHR, status) {
+            alert("can not connect to server")
+        }
+      })
+    }
+
+    function logout() {
+      $.ajax({
+        url: 'http://localhost:8080/rest/logout',
+        type: 'GET',
+        dataType: "json",
+        contentType: "application/json",
+        data: {"uuid" : uuid},
+        success: function(data) {console.log(data)}
+      })
+    }
+
+
+    $(document).ready(function(){
+
+      register()
+      if(uuid.length > 0){
+        $(window).bind("beforeunload", logout)
+      }
+
+       /* First console */
+       var console1 = $('<div class="console1">');
+       $('body').append(console1);
+       var controller1 = console1.console({
+         promptLabel: 'Scala> ',
+         commandValidate:function(line){
+           if (line == "") return false;
+           else return true;
+         },
+         commandHandle:function(line){
+           var x = $.ajax({
+             url: 'http://localhost:8080/rest/execute',
+             type: 'GET',
+             dataType: "json",
+             contentType: "application/json",
+             async : false,
+             data: {uuid: uuid, cmd:line},
+             success: function(data) {
+               console.log(data)
+               msg = data.detail
+             },
+             error: function(xhr, status) {
+               var err = eval("(" + xhr.responseText + ")");
+               alert(err.Message);
+             }
+           })
+           return msg
+         },
+         autofocus:true,
+         animateScroll:true,
+         promptHistory:true,
+         charInsertTrigger:function(keycode,line){
+            return true;
+         }
+       });
+     });
+
+    </script>
+    <style type="text/css" media="screen">
+      div.console1,div.console2,div.console3 { word-wrap: break-word; }
+      /* First console */
+      div.console1 { font-size: 14px }
+      div.console1 div.jquery-console-inner
+       { width:900px; height:200px; background:#333; padding:0.5em;
+         overflow:auto }
+      div.console1 div.jquery-console-prompt-box
+       { color:#fff; font-family:monospace; }
+      div.console1 div.jquery-console-focus span.jquery-console-cursor
+       { background:#fefefe; color:#333; font-weight:bold }
+      div.console1 div.jquery-console-message-error
+       { color:#ef0505; font-family:sans-serif; font-weight:bold;
+         padding:0.1em; }
+      div.console1 div.jquery-console-message
+       { color:#1ad027; font-family:monospace;
+         padding:0.1em; }
+      div.console1 div.jquery-console-message-type
+       { color:#52666f; font-family:monospace;
+         padding:0.1em; }
+      div.console1 span.jquery-console-prompt-label { font-weight:bold }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        <strong>Please enable JavaScript or upgrade your browser.</strong>
+      </p>
+    </noscript>
+    <h1>Simple Online Scala REPL</h1>
+  </body>
+</html>
