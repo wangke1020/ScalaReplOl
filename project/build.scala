@@ -41,9 +41,11 @@ object ScalareplolBuild extends Build {
         "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "container",
         "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
         "com.twitter" % "util-eval" % "1.12.13",
-        "ch.qos.logback" % "logback-classic" % "1.1.1" % "runtime"
+        "ch.qos.logback" % "logback-classic" % "1.1.1" % "runtime",
+        "net.sourceforge.pro-grade" % "pro-grade" % "1.1.1"
 
-      ),
+
+  ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(
           TemplateConfig(

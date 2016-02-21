@@ -1,13 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
+        "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-    <title>JQuery Console Demo</title>
-    <meta name="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="jquery.console.js"></script>
-    <!-- Everything beyond this point is user-customized -->
-    <script type="text/javascript">
+<head>
+  <title>JQuery Console Demo</title>
+  <meta name="Content-Type" content="text/html; charset=UTF-8">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="jquery.console.js"></script>
+  <!-- Everything beyond this point is user-customized -->
+  <script type="text/javascript">
 
 
     uuid = ''
@@ -50,7 +50,7 @@
       }
 
        /* First console */
-       var console1 = $('<div class="console1">');
+       var console1 = $('<div class="console1" align="center">');
        $('body').append(console1);
        var controller1 = console1.console({
          promptLabel: 'Scala> ',
@@ -87,35 +87,42 @@
      });
 
     </script>
-    <style type="text/css" media="screen">
-      div.console1,div.console2,div.console3 { word-wrap: break-word; }
-      /* First console */
-      div.console1 { font-size: 14px }
-      div.console1 div.jquery-console-inner
-       { width:900px; height:200px; background:#333; padding:0.5em;
-         overflow:auto }
-      div.console1 div.jquery-console-prompt-box
-       { color:#fff; font-family:monospace; }
-      div.console1 div.jquery-console-focus span.jquery-console-cursor
-       { background:#fefefe; color:#333; font-weight:bold }
-      div.console1 div.jquery-console-message-error
-       { color:#ef0505; font-family:sans-serif; font-weight:bold;
-         padding:0.1em; }
-      div.console1 div.jquery-console-message
-       { color:#1ad027; font-family:monospace;
-         padding:0.1em; }
-      div.console1 div.jquery-console-message-type
-       { color:#52666f; font-family:monospace;
-         padding:0.1em; }
-      div.console1 span.jquery-console-prompt-label { font-weight:bold }
-    </style>
-  </head>
-  <body>
-    <noscript>
-      <p>
-        <strong>Please enable JavaScript or upgrade your browser.</strong>
-      </p>
-    </noscript>
-    <h1>Simple Online Scala REPL</h1>
-  </body>
+  <style type="text/css" media="screen">
+    div.console1,div.console2,div.console3 { word-wrap: break-word;}
+    /* First console */
+    div.console1 { font-size: 14px;}
+    div.console1 div.jquery-console-inner
+    { width:1000px; height:500px; background:#333; padding:0.5em;
+    overflow:auto;text-align:left}
+    div.console1 div.jquery-console-prompt-box
+    { color:#fff; font-family:monospace;}
+    div.console1 div.jquery-console-focus span.jquery-console-cursor
+    { background:#fefefe; color:#333; font-weight:bold }
+    div.console1 div.jquery-console-message-error
+    { color:#ef0505; font-family:sans-serif; font-weight:bold;
+    padding:0.1em; }
+    div.console1 div.jquery-console-message
+    { color:#1ad027; font-family:monospace;
+    padding:0.1em;}
+    div.console1 div.jquery-console-message-type
+    { color:#52666f; font-family:monospace;
+    padding:0.1em;}
+    div.console1 span.jquery-console-prompt-label { font-weight:bold}
+  </style>
+</head>
+<body>
+<noscript>
+  <p>
+    <strong>Please enable JavaScript or upgrade your browser.</strong>
+  </p>
+</noscript>
+<div align="center">
+  <table>
+    <tr valign="middle">
+      <td><img src="image/scalaIcon.png" alt="" width="30px" height="40px"></td>
+      <td><h1>Simple Scala REPL</h1></td>
+    </tr>
+  </table>
+</div>
+</body>
 </html>
