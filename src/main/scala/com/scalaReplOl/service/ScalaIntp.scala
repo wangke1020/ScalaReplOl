@@ -36,7 +36,7 @@ class ScalaIntp {
   private def setSecurityPolicy() = {
     logger.info("set security policy")
     try{
-      logger.info(exec("System.setProperty(\"java.security.policy\",\"=/opt/code/scalareplol/conf/prograde.policy\")"))
+      logger.info(exec("System.setProperty(\"java.security.policy\",\"=conf/prograde.policy\")"))
       logger.info(exec("import net.sourceforge.prograde.sm.ProGradeJSM"))
       logger.info(exec("System.setSecurityManager(new ProGradeJSM)"))
     }catch{
