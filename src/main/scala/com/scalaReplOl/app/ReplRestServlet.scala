@@ -14,8 +14,6 @@ class ReplRestServlet(implicit val swagger: Swagger)
 
   protected implicit val jsonFormats: Formats = DefaultFormats
 
-  val localhosts = List("127.0.0.1", "0:0:0:0:0:0:0:1")
-
   // A description of our application. This will show up in the Swagger docs.
   protected val applicationDescription = ""
 
@@ -38,14 +36,10 @@ class ReplRestServlet(implicit val swagger: Swagger)
   //REST API
   //Only allow localhost to access the rest API
   get("/register"){
-    if( localhosts.contains(request.getRemoteAddr)) {
       packMsg(intpPool.registerNew())
-    }else{
-      logger.error("invalid req ip:%s".format(request.getRemoteAddr))
-    }
   }
 
-  get("/execute", localhosts.contains(request.getRemoteAddr)){
+  get("/execute"){
 
     val uuid = params.get("uuid").get
     val cmd = params.get("cmd").get
@@ -53,7 +47,7 @@ class ReplRestServlet(implicit val swagger: Swagger)
     packMsg(intpPool.exec(uuid.toString, cmd))
   }
 
-  get("/logout", localhosts.contains(request.getRemoteAddr)) {
+  get("/logout") {
     //
     params.get("uuid") match {
       case Some(uuid: String) =>
