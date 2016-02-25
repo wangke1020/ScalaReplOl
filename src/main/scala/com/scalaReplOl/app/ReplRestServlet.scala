@@ -21,6 +21,7 @@ class ReplRestServlet(implicit val swagger: Swagger)
 
   private var intpPool = new IntpPool
 
+  logger.info("start repl rest service")
 
   before() {
     contentType = formats("json")
@@ -36,8 +37,12 @@ class ReplRestServlet(implicit val swagger: Swagger)
 
   //REST API
   //Only allow localhost to access the rest API
-  get("/register", localhosts.contains(request.getRemoteAddr)){
-    packMsg(intpPool.registerNew())
+  get("/register"){
+    if( localhosts.contains(request.getRemoteAddr)) {
+      packMsg(intpPool.registerNew())
+    }else{
+      logger.error("invalid req ip:%s".format(request.getRemoteAddr))
+    }
   }
 
   get("/execute", localhosts.contains(request.getRemoteAddr)){
